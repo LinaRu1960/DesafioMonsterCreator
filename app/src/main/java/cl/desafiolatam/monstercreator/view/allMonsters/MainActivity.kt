@@ -5,9 +5,16 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import cl.desafiolatam.monstercreator.R
+import cl.desafiolatam.monstercreator.databinding.ActivityMainBinding
+import cl.desafiolatam.monstercreator.view.monsteravatars.AllMonsterAdapter
+import cl.desafiolatam.monstercreator.viewmodel.AllMonsterViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 /*
 [X] 1. Tu primera tarea es revisar el código facilitado:
@@ -43,10 +50,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModel: AllMonsterViewModel by viewModels()
+    private lateinit var binding:ActivityMainBinding
+    private val adapter=AllMonsterAdapter(mutableListOf())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding=ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setSupportActionBar(toolbar)
+        val recyclerViewMonster= rv_Monster
+        recyclerViewMonster.adapter=adapter
+        recyclerViewMonster.layoutManager
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
