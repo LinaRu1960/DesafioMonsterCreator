@@ -10,17 +10,17 @@ import cl.desafiolatam.monstercreator.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 /*
-[] 1. Tu primera tarea es revisar el código facilitado:
-     [] Revisar las clases, métodos, layouts etc.
+[X] 1. Tu primera tarea es revisar el código facilitado:
+     [X] Revisar las clases, métodos, layouts etc.
      [X] Verificar si el proyecto puedes ejecutarlo en tu máquina
-     [] resolver los posibles problemas de compatibilidad
+     [X] resolver los posibles problemas de compatibilidad
      [X] descargar las versiones más nuevas de las librerías utilizadas
 
 [] Crear el adaptador para el RecyclerView que mostrará todos los monstruos
-    [] Utiliza las vistas ya existentes para los items
+    [X] Utiliza las vistas ya existentes para los items
     [] implementarlo en MainActivity
-    [] recibir los datos en el recyclerView que los mostrara
-    [] añadir el RecyclerView en “content_main.xml”
+    [X] recibir los datos en el recyclerView que los mostrara
+    [X] añadir el RecyclerView en “content_main.xml”
 
 [] 3. construir un repositorio que se encargue de comunicarse con las distintas fuentes de datos
       [] completa el código que haga falta en la clase “MonsterRepository”
@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.activity_main.*
      [] pasar los datos observados al adaptador
 
 [] 6. Utiliza el boton del menu superior, para eliminar todos los datos
-      [] cambiale el nombre que viene por defecto(“settings”) a (“borrar todos”)
+      [X] cambiale el nombre que viene por defecto(“settings”) a (“borrar todos”)
 
  */
 
