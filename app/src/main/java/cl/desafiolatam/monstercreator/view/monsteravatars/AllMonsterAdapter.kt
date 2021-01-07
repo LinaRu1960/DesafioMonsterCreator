@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cl.desafiolatam.monstercreator.databinding.MonsterItemBinding
 import cl.desafiolatam.monstercreator.model.Monster
 
-class AllMonsterAdapter (): RecyclerView.Adapter<AllMonsterVH>(){
+class AllMonsterAdapter: RecyclerView.Adapter<AllMonsterVH>(){
     private var monsterList = mutableListOf<Monster>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllMonsterVH {

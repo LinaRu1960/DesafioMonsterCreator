@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: AllMonsterViewModel by viewModels()
     private lateinit var binding:ActivityMainBinding
-    private val adapter=AllMonsterAdapter(mutableListOf())
+    private val adapter=AllMonsterAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
