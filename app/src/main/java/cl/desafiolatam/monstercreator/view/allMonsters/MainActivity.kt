@@ -8,8 +8,11 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import cl.desafiolatam.monstercreator.R
 import cl.desafiolatam.monstercreator.databinding.ActivityMainBinding
+import cl.desafiolatam.monstercreator.databinding.ContentMainBinding
 import cl.desafiolatam.monstercreator.view.monsteravatars.AllMonsterAdapter
 import cl.desafiolatam.monstercreator.viewmodel.AllMonsterViewModel
 
@@ -58,9 +61,12 @@ class MainActivity : AppCompatActivity() {
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(toolbar)
+        val mergeBinding = ContentMainBinding.bind(binding.root)
+        val rv: RecyclerView = mergeBinding.rvMonster
+        rv.adapter = adapter
         val recyclerViewMonster= rv_Monster
         recyclerViewMonster.adapter=adapter
-        recyclerViewMonster.layoutManager
+        recyclerViewMonster.layoutManager = LinearLayoutManager(this)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
