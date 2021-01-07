@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class MonsterCreatorViewModel(application: Application) : AndroidViewModel(application) {
     private var repository: MonsterRepository = MonsterRepository(application)
     init {
-        repository
+        repository.loadDataBase()
     }
 
 

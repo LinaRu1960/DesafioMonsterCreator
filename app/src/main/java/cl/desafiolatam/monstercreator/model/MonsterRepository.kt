@@ -2,7 +2,6 @@ package cl.desafiolatam.monstercreator.model
 
 import android.content.Context
 import cl.desafiolatam.monstercreator.model.db.MonsterRoomDataBase
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -15,7 +14,7 @@ import kotlinx.coroutines.launch
 class MonsterRepository(context: Context) {
     var monsterDatabase = MonsterRoomDataBase.getDatabase(context)
     var listMonster = monsterDatabase.monsterDao().getAllMonsters()
-    var monsterList = Monster()
+
     fun loadDataBase(){
         if(isDatabaseIsEmpty()){
         monsterDatabase.monsterDao().insertMonster()
@@ -34,7 +33,7 @@ class MonsterRepository(context: Context) {
         return listMonster.map { monster -> Monster(monster.attributes, monster.monsterPoints, monster.name, monster.drawable) }
     }
     fun saveDatabase(Monster: List<Monster>){
-        monsterDatabase.monsterDao().insertMonster(Monster)
+        monsterDatabase.monsterDao().insertMonster()
         }
 
     }

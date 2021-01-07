@@ -10,8 +10,8 @@ import cl.desafiolatam.monstercreator.model.Monster
 @Dao
 interface MonsterDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMonster(monster: List<Monster>)
+    @Insert
+    fun insertMonster(): List<Monster>
 
     @Query("SELECT * FROM monster_table ORDER BY name ASC")
     fun getAllMonsters(): LiveData<List<Monster>>

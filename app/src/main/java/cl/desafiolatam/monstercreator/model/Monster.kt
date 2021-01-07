@@ -11,6 +11,7 @@ import androidx.room.PrimaryKey
 data class Monster(
     val attributes: MonsterAttributes = MonsterAttributes(),
     val monsterPoints: Int = 0,
-    @PrimaryKey @NonNull val name: String,
+    @PrimaryKey @NonNull
+    val name: String,
     val drawable: Int = 0
 )
