@@ -1,6 +1,8 @@
 package cl.desafiolatam.monstercreator.model
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import cl.desafiolatam.monstercreator.app.MonsterCreatorApplication
 import cl.desafiolatam.monstercreator.model.db.MonsterRoomDataBase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,29 +13,26 @@ import kotlinx.coroutines.launch
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
-class MonsterRepository(context: Context) {
-    var monsterDatabase = MonsterRoomDataBase.getDatabase(context)
-    var listMonster = monsterDatabase.monsterDao().getAllMonsters()
+class MonsterRepository: MonsterRepositoryInterface{
 
-    fun loadDataBase(){
-        if(isDatabaseIsEmpty()){
-        monsterDatabase.monsterDao().insertMonster()
-       }
-    }
+        var monsterDatabase = MonsterCreatorApplication.database
+        var listMonster = monsterDatabase.monsterDao().getAllMonsters()
 
-    fun isDatabaseIsEmpty(): Boolean {
-        var result = false
-        if(monsterDatabase.monsterDao().counMonster() == 0){
-            result = true
-        }
-        return result
-    }
-
-    fun quoteConverter(listMonster: List<Monster>): List<Monster>{
-        return listMonster.map { monster -> Monster(monster.attributes, monster.monsterPoints, monster.name, monster.drawable) }
-    }
-    fun saveDatabase(Monster: List<Monster>){
-        monsterDatabase.monsterDao().insertMonster()
+    override fun saveMonsterInDatabase(monster: Monster){
+        monsterDatabase.monsterDao().insertMonster(monster)
         }
 
+    override fun getAllMonster(): LiveData<List<Monster>> {
+       return listMonster
+    }
+
+    override fun clearAllMonster() {
+        //TODO monsterDatabase.monsterDao().deleteAllMonsters()
+    }
+}
+
+    interface MonsterRepositoryInterface {
+        fun saveMonsterInDatabase(monster: Monster)
+        fun getAllMonster(): LiveData<List<Monster>>
+        fun clearAllMonster()
     }

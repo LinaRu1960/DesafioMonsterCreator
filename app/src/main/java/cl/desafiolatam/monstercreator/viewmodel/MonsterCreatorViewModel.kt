@@ -14,10 +14,5 @@ import kotlinx.coroutines.launch
 
 // Class extends AndroidViewModel and requires application as a parameter.
 class MonsterCreatorViewModel(application: Application) : AndroidViewModel(application) {
-    private var repository: MonsterRepository = MonsterRepository(application)
-    init {
-        repository.loadDataBase()
-    }
-
 
 }
