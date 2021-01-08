@@ -53,7 +53,6 @@
             android:layout_margin="16dp"
             android:hint="Nombre de tu Monstruo"
             android:inputType="text"
-            android:text="@={viewmodel.name}"
             app:layout_constraintBaseline_toBaselineOf="@+id/nameLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/nameLabel" />
@@ -69,6 +68,7 @@
             app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
 
         <Spinner
+            android:entries="@array/ValorAtributo"
             android:id="@+id/intelligence"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -88,6 +88,7 @@
             app:layout_constraintTop_toBottomOf="@+id/intelligenceLabel" />
 
         <Spinner
+            android:entries="@array/ValorAtributo"
             android:id="@+id/strength"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -107,6 +108,7 @@
             app:layout_constraintTop_toBottomOf="@+id/strengthLabel" />
 
         <Spinner
+            android:entries="@array/ValorAtributo"
             android:id="@+id/endurance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -144,7 +146,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:onClick="@{() -> viewmodel.saveCreature()}"
             android:text="Guardar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,11 +1,9 @@
 package cl.desafiolatam.monstercreator.model
 
-import android.content.Context
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import cl.desafiolatam.monstercreator.app.MonsterCreatorApplication
-import cl.desafiolatam.monstercreator.model.db.MonsterRoomDataBase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * Created by Cristian Vidal on 2019-09-26.
@@ -20,19 +18,20 @@ class MonsterRepository: MonsterRepositoryInterface{
 
     override fun saveMonsterInDatabase(monster: Monster){
         monsterDatabase.monsterDao().insertMonster(monster)
-        }
+        Log.d("MonsterRepository", "saveMonsterInDatabase: $monster")
+    }
 
     override fun getAllMonster(): LiveData<List<Monster>> {
        return listMonster
     }
 
-    override fun clearAllMonster() {
-        //TODO monsterDatabase.monsterDao().deleteAllMonsters()
+    override fun clearAllMonster(value: List<Monster>) {
+        value.forEach { monsterDatabase.monsterDao().deleteMonster(it)}
     }
 }
 
     interface MonsterRepositoryInterface {
         fun saveMonsterInDatabase(monster: Monster)
         fun getAllMonster(): LiveData<List<Monster>>
-        fun clearAllMonster()
+        fun clearAllMonster(value: List<Monster>)
     }

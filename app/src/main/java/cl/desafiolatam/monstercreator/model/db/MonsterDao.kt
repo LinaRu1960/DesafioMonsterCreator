@@ -18,10 +18,6 @@ interface MonsterDao {
 
 
     @Delete
-    fun deleteAllMonsters(vararg monster: Monster)
-
-    @Query("SELECT COUNT (*) FROM monster_table") // Extraer un monstruo
-    fun counMonster(): Int
-
+    fun deleteMonster(vararg monster: Monster)
 
 }

@@ -14,6 +14,6 @@ class AllMonsterViewModel(
     private val monsterRepository: MonsterRepositoryInterface = MonsterRepository()
 ): ViewModel() {
     private val allMonsterLiveData = monsterRepository.getAllMonster()
-    fun getAllMonster(): LiveData<List<Monster>> = getAllMonster()
-    fun clearAllMonster() = monsterRepository.clearAllMonster()
+    fun getAllMonster(): LiveData<List<Monster>> = monsterRepository.getAllMonster()
+    fun clearAllMonster() = allMonsterLiveData.value?.let { monsterRepository.clearAllMonster(it) }
 }

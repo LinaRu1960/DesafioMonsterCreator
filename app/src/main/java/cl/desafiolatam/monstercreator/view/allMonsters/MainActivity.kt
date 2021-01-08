@@ -1,10 +1,12 @@
 package cl.desafiolatam.monstercreator.view.allMonsters
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cl.desafiolatam.monstercreator.R
 import cl.desafiolatam.monstercreator.databinding.ActivityMainBinding
 import cl.desafiolatam.monstercreator.databinding.ContentMainBinding
+import cl.desafiolatam.monstercreator.view.monster.MonsterCreatorActivity
 import cl.desafiolatam.monstercreator.view.monsteravatars.AllMonsterAdapter
 import cl.desafiolatam.monstercreator.viewmodel.AllMonsterViewModel
 
@@ -52,7 +55,7 @@ import kotlinx.android.synthetic.main.content_main.*
 
  */
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener  {
 
     private lateinit var viewModel: AllMonsterViewModel
     private lateinit var binding:ActivityMainBinding
@@ -61,25 +64,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding=ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(toolbar)
+        val mergeBinding = ContentMainBinding.bind(binding.root)
 
         viewModel = ViewModelProvider(this).get(AllMonsterViewModel::class.java)
 
-        val mergeBinding = ContentMainBinding.bind(binding.root)
+
         val rv: RecyclerView = mergeBinding.rvMonster
         rv.adapter = adapter
-        val recyclerViewMonster= rv_Monster
-        recyclerViewMonster.adapter=adapter
-        recyclerViewMonster.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = LinearLayoutManager(this)
+
+        viewModel.getAllMonster().observe(this, Observer { it -> it?.let {
+            adapter.updateMonsters(it)
+        } })
+
+        setContentView(binding.root)
+        setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+                .setAction("Action", this).show()
         }
-         viewModel.getAllMonster().observe(this, Observer { t -> t?.let {
-             adapter.updateMonsters(it)
-         } })
+
+
 
     }
 
@@ -100,5 +106,10 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onClick(v: View?) {
+       val intent = Intent(this, MonsterCreatorActivity::class.java)
+        startActivity(intent)
     }
 }

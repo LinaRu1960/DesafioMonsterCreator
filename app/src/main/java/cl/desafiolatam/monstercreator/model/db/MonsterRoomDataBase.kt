@@ -17,7 +17,7 @@ abstract class MonsterRoomDataBase : RoomDatabase() {
 
     abstract fun monsterDao(): MonsterDao
 
-    companion object {
+    /*companion object {
         // Singleton prevents multiple instances of database opening at the same time.
         @Volatile
         private var INSTANCE: MonsterRoomDataBase? = null
@@ -36,5 +36,5 @@ abstract class MonsterRoomDataBase : RoomDatabase() {
                 return instance
             }
         }
-    }
+    }*/
 }
