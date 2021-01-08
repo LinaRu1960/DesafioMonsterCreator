@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,25 +27,25 @@ import kotlinx.android.synthetic.main.content_main.*
      [X] resolver los posibles problemas de compatibilidad
      [X] descargar las versiones más nuevas de las librerías utilizadas
 
-[] Crear el adaptador para el RecyclerView que mostrará todos los monstruos
+[X] Crear el adaptador para el RecyclerView que mostrará todos los monstruos
     [X] Utiliza las vistas ya existentes para los items
-    [] implementarlo en MainActivity
+    [X] implementarlo en MainActivity
     [X] recibir los datos en el recyclerView que los mostrara
     [X] añadir el RecyclerView en “content_main.xml”
 
-[] 3. construir un repositorio que se encargue de comunicarse con las distintas fuentes de datos
-      [] completa el código que haga falta en la clase “MonsterRepository”
-      [] revisar si tu DAO está correctamente configurado
-      [] Crear una interface para manejar los métodos que utilizaremos
-      [] Implementar la interface en la clase repositorio que servirá como puente hacia este desde el viewModel
+[X] 3. construir un repositorio que se encargue de comunicarse con las distintas fuentes de datos
+      [X] completa el código que haga falta en la clase “MonsterRepository”
+      [X] revisar si tu DAO está correctamente configurado
+      [X] Crear una interface para manejar los métodos que utilizaremos
+      [X] Implementar la interface en la clase repositorio que servirá como puente hacia este desde el viewModel
 
-[] 4. Crea ViewModel que se encargará de manejar los datos provenientes del Repositorio en la vista
-      [] modifica el código en la clase AllMonsterViewModel
+[X] 4. Crea ViewModel que se encargará de manejar los datos provenientes del Repositorio en la vista
+      [X] modifica el código en la clase AllMonsterViewModel
 
-[] 5. Añadir el viewModel desde el cual nuestra MainActivity consumirá los datos
-     [] Realizar las configuraciones
-     [] escribir el código necesario para observar los datos utilizando LiveData
-     [] pasar los datos observados al adaptador
+[X] 5. Añadir el viewModel desde el cual nuestra MainActivity consumirá los datos
+     [X] Realizar las configuraciones
+     [X] escribir el código necesario para observar los datos utilizando LiveData
+     [X] pasar los datos observados al adaptador
 
 [] 6. Utiliza el boton del menu superior, para eliminar todos los datos
       [X] cambiale el nombre que viene por defecto(“settings”) a (“borrar todos”)
@@ -53,14 +54,18 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: AllMonsterViewModel by viewModels()
+    private lateinit var viewModel: AllMonsterViewModel
     private lateinit var binding:ActivityMainBinding
     private val adapter=AllMonsterAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(toolbar)
+
+        viewModel = ViewModelProvider(this).get(AllMonsterViewModel::class.java)
+
         val mergeBinding = ContentMainBinding.bind(binding.root)
         val rv: RecyclerView = mergeBinding.rvMonster
         rv.adapter = adapter
@@ -72,6 +77,10 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+         viewModel.getAllMonster().observe(this, Observer { t -> t?.let {
+             adapter.updateMonsters(it)
+         } })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -85,7 +94,10 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                viewModel.clearAllMonster()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

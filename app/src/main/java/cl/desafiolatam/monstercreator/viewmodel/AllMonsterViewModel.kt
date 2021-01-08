@@ -10,9 +10,10 @@ import cl.desafiolatam.monstercreator.model.MonsterRepositoryInterface
 /**
  * Created by Cristian Vidal on 2019-10-02.
  */
-class AllMonsterViewModel(val monsterRepository: MonsterRepositoryInterface = MonsterRepository()):
-    ViewModel() {
-    private val allMonsterViewModel = monsterRepository.getAllMonster()
-    private fun getAllMonster(): LiveData<List<Monster>> = getAllMonster()
-    private fun clearAllMonster() = monsterRepository.clearAllMonster()
+class AllMonsterViewModel(
+    private val monsterRepository: MonsterRepositoryInterface = MonsterRepository()
+): ViewModel() {
+    private val allMonsterLiveData = monsterRepository.getAllMonster()
+    fun getAllMonster(): LiveData<List<Monster>> = getAllMonster()
+    fun clearAllMonster() = monsterRepository.clearAllMonster()
 }

@@ -16,9 +16,6 @@ class MonsterCreatorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monster_creator)
-        adapter = MonsterAdapter(monsterList)
-
-        val monsterViewModel: MonsterCreatorViewModel by activityViewModels()
 
     }
     // in this activity must place a recyclerView with all the monster on the DB

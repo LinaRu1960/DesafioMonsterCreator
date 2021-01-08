@@ -25,6 +25,11 @@ class AllMonsterAdapter: RecyclerView.Adapter<AllMonsterVH>(){
     override fun getItemCount(): Int {
         return monsterList.size
     }
+    fun updateMonsters(creatures: List<Monster>){
+        monsterList.clear()
+        monsterList.addAll(creatures)
+        notifyDataSetChanged()
+    }
 
 }
 
